@@ -1,5 +1,6 @@
 """Build standalone public artifacts using only whitelisted schedule fields."""
 import csv
+import hashlib
 import json
 import shutil
 from datetime import datetime, timezone
@@ -16,6 +17,9 @@ def render(schedule, output):
     (output / 'schedule.json').write_text(encoded + '\n', encoding='utf-8')
     embedded = encoded.replace('&', '\\u0026').replace('<', '\\u003c').replace('>', '\\u003e')
     template = (ROOT / 'web/index.html').read_text(encoding='utf-8')
+    for asset in ('app.js', 'style.css'):
+        version = hashlib.sha256((ROOT / 'web' / asset).read_bytes()).hexdigest()[:12]
+        template = template.replace(asset + '"', asset + '?v=' + version + '"')
     (output / 'index.html').write_text(template.replace('__SCHEDULE_JSON__', embedded), encoding='utf-8')
     for filename in ('app.js', 'style.css'):
         shutil.copyfile(ROOT / 'web' / filename, output / filename)
