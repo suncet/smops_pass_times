@@ -56,9 +56,16 @@ def _process(repo, state):
     files = sorted((state / 'queue').glob('*.eml'))
     if not files:
         return
-    # Recover any commit whose previous push failed before reading new data.
-    git(repo, 'push', 'origin', 'HEAD:main')
-    git(repo, 'pull', '--ff-only', 'origin', 'main')
+    # Pull upstream edits first; retry only commits actually ahead of origin.
+    git(repo, 'fetch', 'origin', 'main')
+    ahead, behind = map(int, git(repo, 'rev-list', '--left-right', '--count',
+                                'HEAD...origin/main').stdout.split())
+    if ahead and behind:
+        raise RuntimeError('Publisher and origin diverged; resolve the checkout manually.')
+    if behind:
+        git(repo, 'merge', '--ff-only', 'origin/main')
+    if ahead:
+        git(repo, 'push', 'origin', 'HEAD:main')
     if git(repo, 'status', '--porcelain').stdout.strip():
         # Only generated docs may remain dirty following an interrupted run.
         changed = git(repo, 'diff', '--name-only', 'HEAD').stdout.splitlines()

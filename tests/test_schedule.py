@@ -116,18 +116,32 @@ class QueueTests(unittest.TestCase):
         self.assertTrue((self.state/'rejected/broken.eml').exists())
         self.assertFalse(json.loads((self.state/'status.json').read_text())['ok'])
 
+    def test_remote_readme_edit_does_not_block_updates(self):
+        other=Path(self.temp.name)/'other'
+        self.run_git('clone','--branch','main',str(self.remote),str(other))
+        worker.git(other,'config','user.name','Test')
+        worker.git(other,'config','user.email','test@example.com')
+        (other/'README.md').write_text('Minimal README\n')
+        worker.git(other,'add','README.md')
+        worker.git(other,'commit','-m','Edit README')
+        worker.git(other,'push','origin','main')
+        self.enqueue('new.eml',email(date='Fri, 02 Jan 2026 08:00:00 +0000'))
+        worker.process_queue(self.repo,self.state)
+        self.assertEqual((self.repo/'README.md').read_text(),'Minimal README\n')
+        self.assertTrue((self.state/'processed/new.eml').exists())
+
     def test_failed_push_keeps_queue_and_retries(self):
         path=self.enqueue('new.eml',email(date='Fri, 02 Jan 2026 08:00:00 +0000'))
         original=worker.git
         calls=0
-        def fail_second_push(repo,*args):
+        def fail_first_push(repo,*args):
             nonlocal calls
             if args[0]=='push':
                 calls+=1
-                if calls==2:
+                if calls==1:
                     raise subprocess.CalledProcessError(1, 'git push')
             return original(repo,*args)
-        with patch.object(worker,'git',side_effect=fail_second_push):
+        with patch.object(worker,'git',side_effect=fail_first_push):
             with self.assertRaises(subprocess.CalledProcessError):
                 worker.process_queue(self.repo,self.state)
         self.assertTrue(path.exists())
