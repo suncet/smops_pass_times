@@ -87,7 +87,8 @@ function renderActiveBanner(active) {
     const info = node('div', '', 'active-info');
     info.append(node('h3', pass.mission));
     const times = node('div', '', 'active-los');
-    times.append(node('span', 'LOS ' + formatTime(pass.los_utc, 'UTC') + ' UTC'),
+    times.append(node('span', 'LOS', 'active-los-label'),
+      node('span', formatTime(pass.los_utc, 'UTC') + ' UTC'),
       node('span', formatTime(pass.los_utc, 'America/Denver') + ' ' + zoneAbbreviation(pass.los_utc, 'America/Denver')));
     info.append(times);
     const timerGroup = node('div', '', 'active-timer-group');
