@@ -130,6 +130,10 @@ for (const mission of missions) $('mission').append(new Option(mission,mission))
 $('total').textContent = passes.length;
 $('missions').textContent = missions.length;
 if (schedule.source_generated) $('source-time').textContent = 'Source schedule file generated '+schedule.source_generated+'.';
+try { $('upcoming').checked = localStorage.getItem('smops-upcoming-only') === 'true'; } catch (_) {}
+$('upcoming').addEventListener('change', () => {
+  try { localStorage.setItem('smops-upcoming-only', String($('upcoming').checked)); } catch (_) {}
+});
 for (const id of ['mission','zone','upcoming']) $(id).addEventListener('change',update);
 $('search').addEventListener('input',update);
 for (const button of document.querySelectorAll('[data-sort]')) button.addEventListener('click',()=>{
