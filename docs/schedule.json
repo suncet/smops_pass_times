@@ -1,0 +1,332 @@
+{
+  "schema_version": 1,
+  "message_at": "2026-09-17T20:26:17Z",
+  "source_generated": "2026-09-14 00:33:39",
+  "passes": [
+    {
+      "mission": "COSMO",
+      "aos_utc": "2026-09-17T19:51:40Z",
+      "los_utc": "2026-09-17T19:59:56Z",
+      "elevation_deg": 8.01,
+      "s_band_candidate": false,
+      "uhf": "Keep_Conflict",
+      "s_band": "Delete"
+    },
+    {
+      "mission": "AEPEX",
+      "aos_utc": "2026-09-17T20:16:31Z",
+      "los_utc": "2026-09-17T20:26:28Z",
+      "elevation_deg": 15.87,
+      "s_band_candidate": false,
+      "uhf": "Keep_Conflict",
+      "s_band": "Delete"
+    },
+    {
+      "mission": "CANVAS",
+      "aos_utc": "2026-09-17T20:35:33Z",
+      "los_utc": "2026-09-17T20:46:41Z",
+      "elevation_deg": 35.67,
+      "s_band_candidate": false,
+      "uhf": "Keep",
+      "s_band": "Delete"
+    },
+    {
+      "mission": "COSMO",
+      "aos_utc": "2026-09-17T21:23:21Z",
+      "los_utc": "2026-09-17T21:34:52Z",
+      "elevation_deg": 68.46,
+      "s_band_candidate": false,
+      "uhf": "Keep_Conflict",
+      "s_band": "Delete"
+    },
+    {
+      "mission": "AEPEX",
+      "aos_utc": "2026-09-17T21:49:31Z",
+      "los_utc": "2026-09-17T22:00:38Z",
+      "elevation_deg": 31.32,
+      "s_band_candidate": true,
+      "uhf": "Keep_Conflict",
+      "s_band": "Keep_Conflict"
+    },
+    {
+      "mission": "CANVAS",
+      "aos_utc": "2026-09-17T22:13:21Z",
+      "los_utc": "2026-09-17T22:23:58Z",
+      "elevation_deg": 20.85,
+      "s_band_candidate": false,
+      "uhf": "Keep",
+      "s_band": "Delete"
+    },
+    {
+      "mission": "COSMO",
+      "aos_utc": "2026-09-17T23:00:55Z",
+      "los_utc": "2026-09-17T23:06:20Z",
+      "elevation_deg": 2.55,
+      "s_band_candidate": false,
+      "uhf": "Keep_Conflict",
+      "s_band": "Delete"
+    },
+    {
+      "mission": "CANVAS",
+      "aos_utc": "2026-09-17T23:54:10Z",
+      "los_utc": "2026-09-18T00:00:44Z",
+      "elevation_deg": 3.9,
+      "s_band_candidate": false,
+      "uhf": "Keep_Conflict",
+      "s_band": "Delete"
+    },
+    {
+      "mission": "CANVAS",
+      "aos_utc": "2026-09-18T01:35:03Z",
+      "los_utc": "2026-09-18T01:39:10Z",
+      "elevation_deg": 1.34,
+      "s_band_candidate": false,
+      "uhf": "Delete",
+      "s_band": "Delete"
+    },
+    {
+      "mission": "CANVAS",
+      "aos_utc": "2026-09-18T03:12:15Z",
+      "los_utc": "2026-09-18T03:20:47Z",
+      "elevation_deg": 8.04,
+      "s_band_candidate": false,
+      "uhf": "Keep_Conflict",
+      "s_band": "Delete"
+    },
+    {
+      "mission": "CANVAS",
+      "aos_utc": "2026-09-18T04:49:06Z",
+      "los_utc": "2026-09-18T05:00:28Z",
+      "elevation_deg": 49.04,
+      "s_band_candidate": false,
+      "uhf": "Keep_Conflict",
+      "s_band": "Delete"
+    },
+    {
+      "mission": "CANVAS",
+      "aos_utc": "2026-09-18T06:27:03Z",
+      "los_utc": "2026-09-18T06:36:38Z",
+      "elevation_deg": 13.13,
+      "s_band_candidate": false,
+      "uhf": "Keep_Conflict",
+      "s_band": "Delete"
+    },
+    {
+      "mission": "COSMO",
+      "aos_utc": "2026-09-18T08:54:50Z",
+      "los_utc": "2026-09-18T09:04:07Z",
+      "elevation_deg": 11.02,
+      "s_band_candidate": false,
+      "uhf": "Keep",
+      "s_band": "Delete"
+    },
+    {
+      "mission": "AEPEX",
+      "aos_utc": "2026-09-18T09:19:57Z",
+      "los_utc": "2026-09-18T09:30:37Z",
+      "elevation_deg": 21.78,
+      "s_band_candidate": true,
+      "uhf": "Keep",
+      "s_band": "Keep"
+    },
+    {
+      "mission": "COSMO",
+      "aos_utc": "2026-09-18T10:27:56Z",
+      "los_utc": "2026-09-18T10:39:13Z",
+      "elevation_deg": 43.14,
+      "s_band_candidate": false,
+      "uhf": "Keep_Conflict",
+      "s_band": "Delete"
+    },
+    {
+      "mission": "AEPEX",
+      "aos_utc": "2026-09-18T10:53:46Z",
+      "los_utc": "2026-09-18T11:04:19Z",
+      "elevation_deg": 22.01,
+      "s_band_candidate": true,
+      "uhf": "Keep_Conflict",
+      "s_band": "Keep_Conflict"
+    },
+    {
+      "mission": "COSMO",
+      "aos_utc": "2026-09-18T12:04:29Z",
+      "los_utc": "2026-09-18T12:08:25Z",
+      "elevation_deg": 1.34,
+      "s_band_candidate": false,
+      "uhf": "Delete",
+      "s_band": "Delete"
+    },
+    {
+      "mission": "COSMO",
+      "aos_utc": "2026-09-18T19:35:22Z",
+      "los_utc": "2026-09-18T19:41:46Z",
+      "elevation_deg": 4.04,
+      "s_band_candidate": false,
+      "uhf": "Keep_Conflict",
+      "s_band": "Delete"
+    },
+    {
+      "mission": "AEPEX",
+      "aos_utc": "2026-09-18T19:59:12Z",
+      "los_utc": "2026-09-18T20:07:59Z",
+      "elevation_deg": 9.76,
+      "s_band_candidate": false,
+      "uhf": "Keep_Conflict",
+      "s_band": "Delete"
+    },
+    {
+      "mission": "CANVAS",
+      "aos_utc": "2026-09-18T20:09:44Z",
+      "los_utc": "2026-09-18T20:20:42Z",
+      "elevation_deg": 29.95,
+      "s_band_candidate": false,
+      "uhf": "Delete_Conflict",
+      "s_band": "Delete"
+    },
+    {
+      "mission": "COSMO",
+      "aos_utc": "2026-09-18T21:05:53Z",
+      "los_utc": "2026-09-18T21:17:23Z",
+      "elevation_deg": 68.59,
+      "s_band_candidate": false,
+      "uhf": "Keep_Conflict",
+      "s_band": "Delete"
+    },
+    {
+      "mission": "AEPEX",
+      "aos_utc": "2026-09-18T21:31:13Z",
+      "los_utc": "2026-09-18T21:42:40Z",
+      "elevation_deg": 54.99,
+      "s_band_candidate": true,
+      "uhf": "Keep_Conflict",
+      "s_band": "Keep_Conflict"
+    },
+    {
+      "mission": "CANVAS",
+      "aos_utc": "2026-09-18T21:47:17Z",
+      "los_utc": "2026-09-18T21:58:04Z",
+      "elevation_deg": 23.63,
+      "s_band_candidate": false,
+      "uhf": "Keep",
+      "s_band": "Delete"
+    },
+    {
+      "mission": "COSMO",
+      "aos_utc": "2026-09-18T22:41:56Z",
+      "los_utc": "2026-09-18T22:49:55Z",
+      "elevation_deg": 6.74,
+      "s_band_candidate": false,
+      "uhf": "Keep_Conflict",
+      "s_band": "Delete"
+    },
+    {
+      "mission": "AEPEX",
+      "aos_utc": "2026-09-18T23:09:36Z",
+      "los_utc": "2026-09-18T23:13:24Z",
+      "elevation_deg": 1.17,
+      "s_band_candidate": false,
+      "uhf": "Delete",
+      "s_band": "Delete"
+    },
+    {
+      "mission": "CANVAS",
+      "aos_utc": "2026-09-18T23:27:55Z",
+      "los_utc": "2026-09-18T23:34:50Z",
+      "elevation_deg": 4.44,
+      "s_band_candidate": false,
+      "uhf": "Keep_Conflict",
+      "s_band": "Delete"
+    },
+    {
+      "mission": "CANVAS",
+      "aos_utc": "2026-09-19T01:09:01Z",
+      "los_utc": "2026-09-19T01:12:59Z",
+      "elevation_deg": 1.24,
+      "s_band_candidate": false,
+      "uhf": "Delete",
+      "s_band": "Delete"
+    },
+    {
+      "mission": "CANVAS",
+      "aos_utc": "2026-09-19T02:46:21Z",
+      "los_utc": "2026-09-19T02:54:34Z",
+      "elevation_deg": 7.16,
+      "s_band_candidate": false,
+      "uhf": "Keep_Conflict",
+      "s_band": "Delete"
+    },
+    {
+      "mission": "CANVAS",
+      "aos_utc": "2026-09-19T04:23:10Z",
+      "los_utc": "2026-09-19T04:34:28Z",
+      "elevation_deg": 41.41,
+      "s_band_candidate": false,
+      "uhf": "Keep_Conflict",
+      "s_band": "Delete"
+    },
+    {
+      "mission": "CANVAS",
+      "aos_utc": "2026-09-19T06:00:59Z",
+      "los_utc": "2026-09-19T06:10:56Z",
+      "elevation_deg": 15.57,
+      "s_band_candidate": false,
+      "uhf": "Keep_Conflict",
+      "s_band": "Delete"
+    },
+    {
+      "mission": "COSMO",
+      "aos_utc": "2026-09-19T08:38:00Z",
+      "los_utc": "2026-09-19T08:45:37Z",
+      "elevation_deg": 5.9,
+      "s_band_candidate": false,
+      "uhf": "Keep",
+      "s_band": "Delete"
+    },
+    {
+      "mission": "AEPEX",
+      "aos_utc": "2026-09-19T09:02:13Z",
+      "los_utc": "2026-09-19T09:11:55Z",
+      "elevation_deg": 13.23,
+      "s_band_candidate": false,
+      "uhf": "Keep",
+      "s_band": "Delete"
+    },
+    {
+      "mission": "COSMO",
+      "aos_utc": "2026-09-19T10:10:22Z",
+      "los_utc": "2026-09-19T10:21:53Z",
+      "elevation_deg": 75.9,
+      "s_band_candidate": false,
+      "uhf": "Keep_Conflict",
+      "s_band": "Delete"
+    },
+    {
+      "mission": "AEPEX",
+      "aos_utc": "2026-09-19T10:35:29Z",
+      "los_utc": "2026-09-19T10:46:37Z",
+      "elevation_deg": 35.84,
+      "s_band_candidate": true,
+      "uhf": "Keep_Conflict",
+      "s_band": "Keep_Conflict"
+    },
+    {
+      "mission": "COSMO",
+      "aos_utc": "2026-09-19T11:45:51Z",
+      "los_utc": "2026-09-19T11:52:38Z",
+      "elevation_deg": 4.67,
+      "s_band_candidate": false,
+      "uhf": "Keep_Conflict",
+      "s_band": "Delete"
+    },
+    {
+      "mission": "AEPEX",
+      "aos_utc": "2026-09-19T12:12:50Z",
+      "los_utc": "2026-09-19T12:14:45Z",
+      "elevation_deg": 0.31,
+      "s_band_candidate": false,
+      "uhf": "Delete",
+      "s_band": "Delete"
+    }
+  ],
+  "published_at": "2026-09-17T20:44:59+00:00"
+}
