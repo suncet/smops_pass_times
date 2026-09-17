@@ -15,7 +15,7 @@ function zoneAbbreviation(value, timeZone) {
   return new Intl.DateTimeFormat('en-US', {timeZone, timeZoneName:'short'}).formatToParts(new Date(value)).find(part => part.type === 'timeZoneName').value;
 }
 function timeLine(value, timeZone, secondary = false) {
-  const line = node('div', '', 'time-line' + (secondary ? 'time-secondary' : ''));
+  const line = node('div', '', 'time-line' + (secondary ? ' time-secondary' : ''));
   const [date, time] = formatTime(value, timeZone).split(', ');
   line.append(node('span', date+' ', 'time-date'), node('span', time+' '),
     node('span', zoneAbbreviation(value, timeZone), 'time-zone'));
