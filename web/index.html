@@ -3,19 +3,26 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="SMOPS ground station pass times for all scheduled missions. UTC and Mountain time, mission filters, and downloadable data.">
-<title>SMOPS · Pass times</title><link rel="stylesheet" href="style.css">
+<title>SMOPS · Pass times</title>
+<script>
+try {
+  const theme = localStorage.getItem('smops-theme');
+  if (theme === 'light' || theme === 'dark') document.documentElement.dataset.theme = theme;
+} catch (_) { /* System preference works when storage is unavailable. */ }
+</script>
+<link rel="stylesheet" href="style.css">
 <script id="schedule" type="application/json">__SCHEDULE_JSON__</script>
 <script src="app.js" defer></script>
 </head>
 <body>
-<header><div class="brand"><span class="orbit" aria-hidden="true">◉</span> SMOPS <span class="divider">/</span> MISSION OPERATIONS</div><a href="https://github.com/suncet/smops_pass_times">Source &amp; documentation ↗</a></header>
+<header><div class="brand"><span class="orbit" aria-hidden="true">◉</span> SMOPS <span class="divider">/</span> SMALLSAT MISSION OPERATIONS</div><div class="header-actions"><button id="theme-toggle" type="button" aria-label="Dark mode" aria-pressed="false">Dark mode</button><a href="https://github.com/suncet/smops_pass_times">Source &amp; documentation ↗</a></div></header>
 <main>
-<section class="intro"><p class="eyebrow">GROUND STATION SCHEDULE</p><h1>Pass times<span>.</span></h1><p class="lede">The latest published satellite passes, all in one place.</p>
+<section class="intro"><p class="eyebrow">GROUND STATION SCHEDULE</p><h1>Pass times<span>.</span></h1>
 <div class="metadata"><span id="updated"></span><span id="range"></span></div><p id="stale" role="status" hidden></p></section>
 <section class="summary" aria-label="Schedule overview"><div><span class="eyebrow">PASSES IN SCHEDULE</span><strong id="total">—</strong></div><div><span class="eyebrow">MISSIONS</span><strong id="missions">—</strong></div><div class="next"><span class="eyebrow">NEXT PASS IN SCHEDULE</span><strong id="next">—</strong><span id="countdown"></span></div></section>
 <section class="schedule-panel" aria-label="Pass schedule">
-<div class="controls"><label>Mission<select id="mission"><option value="">All missions</option></select></label><label>Time zone<select id="zone"><option value="UTC">UTC</option><option value="America/Denver">Mountain (Boulder)</option><option value="local">My local time</option></select></label><label class="search">Search<input id="search" type="search" placeholder="Mission or priority…"></label><label class="check"><input id="upcoming" type="checkbox"> Upcoming only</label><a class="download" href="passes.csv" download>Download CSV ↓</a></div>
-<div class="table-meta"><span id="shown" aria-live="polite"></span><span id="zone-label">Times in UTC</span></div>
+<div class="controls"><label>Mission<select id="mission"><option value="">All missions</option></select></label><label>Time display<select id="zone"><option value="both">UTC + Mountain</option><option value="UTC">UTC only</option><option value="America/Denver">Mountain only</option><option value="local">My local time</option></select></label><label class="search">Search<input id="search" type="search" placeholder="Mission or priority…"></label><label class="check"><input id="upcoming" type="checkbox"> Upcoming only</label><a class="download" href="passes.csv" download>Download CSV ↓</a></div>
+<div class="table-meta"><span id="shown" aria-live="polite"></span><span id="zone-label">UTC + Mountain time</span></div>
 <div class="table-scroll" tabindex="0" role="region" aria-label="Scrollable pass times table"><table><caption class="sr-only">Satellite acquisition and loss of signal times</caption><thead><tr>
 <th scope="col"><button data-sort="mission">Mission</button></th><th scope="col" aria-sort="ascending"><button data-sort="aos_utc">AOS <span aria-hidden="true">↑</span></button></th><th scope="col"><button data-sort="los_utc">LOS</button></th><th scope="col"><button data-sort="duration">Duration</button></th><th scope="col"><button data-sort="elevation_deg">Elevation</button></th><th scope="col"><button data-sort="uhf">UHF priority</button></th><th scope="col"><button data-sort="s_band">S-band priority</button></th>
 </tr></thead><tbody id="rows"></tbody></table><p id="empty" hidden>No passes match these filters.</p></div>
