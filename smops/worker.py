@@ -89,7 +89,7 @@ def _process(repo, state):
         render(selected, repo / 'docs')
     # Explicit path list keeps raw mail and local state out of Git commits.
     public = ['docs/index.html', 'docs/schedule.json', 'docs/passes.csv',
-              'docs/style.css', 'docs/app.js', 'docs/.nojekyll']
+              'docs/style.css', 'docs/pass-status.js', 'docs/app.js', 'docs/.nojekyll']
     git(repo, 'add', '--', *public)
     if git(repo, 'diff', '--cached', '--name-only').stdout.strip():
         git(repo, 'commit', '-m', 'Update public SMOPS pass schedule')

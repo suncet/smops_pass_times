@@ -12,6 +12,7 @@ try {
 </script>
 <link rel="stylesheet" href="style.css">
 <script id="schedule" type="application/json">__SCHEDULE_JSON__</script>
+<script src="pass-status.js" defer></script>
 <script src="app.js" defer></script>
 </head>
 <body>
@@ -19,6 +20,11 @@ try {
 <main>
 <section class="intro"><p class="eyebrow">GROUND STATION SCHEDULE</p><h1>PASS TIMES</h1>
 <div class="metadata"><span id="updated"></span><span id="range"></span></div><p id="stale" role="status" hidden></p></section>
+<section id="active-banner" class="active-banner" aria-labelledby="active-heading" hidden>
+<div class="active-heading-row"><span class="live-dot" aria-hidden="true"></span><h2 id="active-heading" role="status" aria-live="polite">PASS IN PROGRESS</h2></div>
+<p class="active-caption">ALL MISSIONS · SCHEDULED PASS WINDOWS</p>
+<div id="active-passes" class="active-passes"></div>
+</section>
 <section class="summary" aria-label="Schedule overview"><div><span class="eyebrow">PASSES IN SCHEDULE</span><strong id="total">—</strong></div><div><span class="eyebrow">MISSIONS</span><strong id="missions">—</strong></div><div class="next"><span class="eyebrow">NEXT PASS IN SCHEDULE</span><strong id="next">—</strong><span id="countdown"></span></div></section>
 <section class="schedule-panel" aria-label="Pass schedule">
 <div class="controls"><label>Mission<select id="mission"><option value="">All missions</option></select></label><label>Time display<select id="zone"><option value="both">UTC + Mountain</option><option value="UTC">UTC only</option><option value="America/Denver">Mountain only</option><option value="local">My local time</option></select></label><label class="search">Search<input id="search" type="search" placeholder="Mission or priority…"></label><label class="check"><input id="upcoming" type="checkbox"> Upcoming only</label><a class="download" href="passes.csv" download>Download CSV ↓</a></div>

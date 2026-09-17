@@ -17,11 +17,11 @@ def render(schedule, output):
     (output / 'schedule.json').write_text(encoded + '\n', encoding='utf-8')
     embedded = encoded.replace('&', '\\u0026').replace('<', '\\u003c').replace('>', '\\u003e')
     template = (ROOT / 'web/index.html').read_text(encoding='utf-8')
-    for asset in ('app.js', 'style.css'):
+    for asset in ('pass-status.js', 'app.js', 'style.css'):
         version = hashlib.sha256((ROOT / 'web' / asset).read_bytes()).hexdigest()[:12]
         template = template.replace(asset + '"', asset + '?v=' + version + '"')
     (output / 'index.html').write_text(template.replace('__SCHEDULE_JSON__', embedded), encoding='utf-8')
-    for filename in ('app.js', 'style.css'):
+    for filename in ('pass-status.js', 'app.js', 'style.css'):
         shutil.copyfile(ROOT / 'web' / filename, output / filename)
     (output / '.nojekyll').touch()
     with (output / 'passes.csv').open('w', newline='', encoding='utf-8') as stream:
