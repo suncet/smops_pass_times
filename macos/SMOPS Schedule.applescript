@@ -4,7 +4,8 @@ using terms from application "Mail"
  on perform mail action with messages theMessages for rule theRule
   tell application "Mail"
    repeat with theMessage in theMessages
-    if (subject of theMessage contains "SMOPS Pass Times and Shift Schedule") and ((extract address from sender of theMessage) is "gs-ops@lasp.colorado.edu") then
+    set senderAddress to extract address from sender of theMessage
+    if (subject of theMessage contains "SMOPS Pass Times and Shift Schedule") and (senderAddress is in {"gs-ops@lasp.colorado.edu", "elisabeth.vanreijendam@lasp.colorado.edu"}) then
      my queueMessage(source of theMessage)
     end if
    end repeat

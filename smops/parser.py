@@ -9,6 +9,7 @@ from zoneinfo import ZoneInfo
 
 SUBJECT = 'SMOPS Pass Times and Shift Schedule'
 SENDER = 'gs-ops@lasp.colorado.edu'
+ALLOWED_SENDERS = (SENDER, 'elisabeth.vanreijendam@lasp.colorado.edu')
 HEADER = ['Mission', 'Local AOS', 'UTC AOS', 'UTC LOS', 'El', 'UHF?', 'SBD?', 'CC']
 PRIORITIES = {'Keep', 'Delete', 'Keep_Conflict', 'Delete_Conflict'}
 UTC = timezone.utc
@@ -111,7 +112,7 @@ def parse_table(text):
     return rows, source_generated
 
 
-def parse_message(raw, allowed_senders=(SENDER,)):
+def parse_message(raw, allowed_senders=ALLOWED_SENDERS):
     message = BytesParser(policy=policy.default).parsebytes(raw)
     if SUBJECT.casefold() not in str(message.get('Subject', '')).casefold():
         raise ScheduleError('Email subject does not match.')

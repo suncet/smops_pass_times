@@ -39,6 +39,15 @@ class ParseTests(unittest.TestCase):
         html = '<div>' + BODY.replace(' ', '&nbsp;').replace('\n', '<br>') + '</div>'
         self.assertEqual(parse_message(email(html, html=True))['passes'], parse_message(email())['passes'])
 
+    def test_authorized_forward_preserves_public_fields(self):
+        raw = email(sender='Elisabeth van Reijendam <Elisabeth.vanReijendam@lasp.colorado.edu>')
+        raw = raw.replace(b'Subject: SMOPS', b'Subject: FW: SMOPS')
+        result = parse_message(raw)
+        self.assertEqual(result, parse_message(email()))
+        self.assertNotIn('Elisabeth', json.dumps(result))
+        with self.assertRaises(ScheduleError):
+            parse_message(email(sender='Elisabeth van Reijendam <other@example.com>'))
+
     def test_bad_sender_rejected(self):
         with self.assertRaises(ScheduleError):
             parse_message(email(sender='other@example.com'))
