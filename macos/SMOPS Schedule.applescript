@@ -5,7 +5,7 @@ using terms from application "Mail"
   tell application "Mail"
    repeat with theMessage in theMessages
     set senderAddress to extract address from sender of theMessage
-    if (subject of theMessage contains "SMOPS Pass Times and Shift Schedule") and (senderAddress is in {"gs-ops@lasp.colorado.edu", "elisabeth.vanreijendam@lasp.colorado.edu"}) then
+    if (subject of theMessage contains "SMOPS Pass Times and Shift Schedule") and (senderAddress is in {"gs-ops@lasp.colorado.edu", "elisabeth.vanreijendam@lasp.colorado.edu", "elva7682@laspcolorado.mail.onmicrosoft.com"}) then
      my queueMessage(source of theMessage)
     end if
    end repeat

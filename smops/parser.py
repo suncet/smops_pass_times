@@ -9,7 +9,8 @@ from zoneinfo import ZoneInfo
 
 SUBJECT = 'SMOPS Pass Times and Shift Schedule'
 SENDER = 'gs-ops@lasp.colorado.edu'
-ALLOWED_SENDERS = (SENDER, 'elisabeth.vanreijendam@lasp.colorado.edu')
+ALLOWED_SENDERS = (SENDER, 'elisabeth.vanreijendam@lasp.colorado.edu',
+                   'elva7682@laspcolorado.mail.onmicrosoft.com')
 HEADER = ['Mission', 'Local AOS', 'UTC AOS', 'UTC LOS', 'El', 'UHF?', 'SBD?', 'CC']
 PRIORITIES = {'Keep', 'Delete', 'Keep_Conflict', 'Delete_Conflict'}
 UTC = timezone.utc

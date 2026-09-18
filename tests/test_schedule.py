@@ -45,6 +45,7 @@ class ParseTests(unittest.TestCase):
         result = parse_message(raw)
         self.assertEqual(result, parse_message(email()))
         self.assertNotIn('Elisabeth', json.dumps(result))
+        self.assertEqual(parse_message(email(sender='elva7682@laspcolorado.mail.onmicrosoft.com')), result)
         with self.assertRaises(ScheduleError):
             parse_message(email(sender='Elisabeth van Reijendam <other@example.com>'))
 
