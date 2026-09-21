@@ -1,4 +1,4 @@
--- Mail rule action: store the message locally; the launch agent handles publishing.
+-- Mail rule action: queue the message, then archive it; the launch agent publishes.
 -- Raw mail stays in Application Support and is never committed to GitHub.
 using terms from application "Mail"
  on perform mail action with messages theMessages for rule theRule
@@ -7,6 +7,12 @@ using terms from application "Mail"
     set senderAddress to extract address from sender of theMessage
     if (subject of theMessage contains "SMOPS Pass Times and Shift Schedule") and (senderAddress is in {"gs-ops@lasp.colorado.edu", "elisabeth.vanreijendam@lasp.colorado.edu", "elva7682@laspcolorado.mail.onmicrosoft.com"}) then
      my queueMessage(source of theMessage)
+     -- Only archive after the complete raw message has been saved successfully.
+     set sourceMailbox to mailbox of theMessage
+     set sourceAccount to account of sourceMailbox
+     if (name of sourceAccount is "LASP") and (name of sourceMailbox is "Inbox") then
+      move theMessage to mailbox "Archive" of sourceAccount
+     end if
     end if
    end repeat
   end tell
