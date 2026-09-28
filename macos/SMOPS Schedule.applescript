@@ -7,24 +7,16 @@ using terms from application "Mail"
    set queued to false
    -- A newly delivered Exchange message may not yet be readable through Mail.
    repeat with attempt from 1 to 4
-    set stageName to "read headers"
+    set stageName to "read source"
     try
-     tell application "Mail"
-      set senderAddress to extract address from sender of theMessage
-      set messageSubject to subject of theMessage
-     end tell
-     if senderAddress is missing value or senderAddress is "" or messageSubject is missing value or messageSubject is "" then error "Message headers not ready" number -2700
-     if (messageSubject contains "SMOPS Pass Times and Shift Schedule") and (senderAddress is in {"gs-ops@lasp.colorado.edu", "elisabeth.vanreijendam@lasp.colorado.edu", "elva7682@laspcolorado.mail.onmicrosoft.com"}) then
-      set stageName to "read source"
-      tell application "Mail" to set rawSource to source of theMessage
-      if rawSource is missing value or rawSource is "" then error "Message source not ready" number -2700
-      set stageName to "save queue"
-      my queueMessage(rawSource)
-      set queued to true
-      my logEvent("message queued")
-     else
-      my logEvent("message skipped: subject or sender did not match")
-     end if
+     -- Mail already matched its rule. Validate the saved RFC email rather than
+     -- querying sender/subject properties that can be stale during delivery.
+     tell application "Mail" to set rawSource to source of theMessage
+     if rawSource is missing value or rawSource is "" then error "Message source not ready" number -2700
+     set stageName to "validate and save queue"
+     my queueMessage(rawSource)
+     set queued to true
+     my logEvent("message validated and queued")
      exit repeat
     on error number errorNumber
      -- Log only stage and error code, never headers or private message contents.
@@ -76,5 +68,13 @@ on queueMessage(rawSource)
   end try
   error errorText number errorNumber
  end try
- do shell script "/bin/chmod 600 " & quoted form of temporaryPath & " && /bin/mv " & quoted form of temporaryPath & " " & quoted form of (queuePath & messageName & ".eml")
+ -- The publisher repeats validation; this check also prevents archiving invalid mail.
+ set publisherPath to (POSIX path of (path to home folder)) & "Library/Application Support/SMOPS Pass Times/publisher/"
+ try
+  do shell script "cd " & quoted form of publisherPath & " && /usr/bin/python3 -m smops validate " & quoted form of temporaryPath
+  do shell script "/bin/chmod 600 " & quoted form of temporaryPath & " && /bin/mv " & quoted form of temporaryPath & " " & quoted form of (queuePath & messageName & ".eml")
+ on error errorText number errorNumber
+  do shell script "/bin/rm -f " & quoted form of temporaryPath
+  error errorText number errorNumber
+ end try
 end queueMessage

@@ -3,6 +3,7 @@ from email.message import EmailMessage
 from pathlib import Path
 import subprocess
 import tempfile
+import sys
 import unittest
 from unittest.mock import patch
 
@@ -48,6 +49,26 @@ class ParseTests(unittest.TestCase):
         self.assertEqual(parse_message(email(sender='elva7682@laspcolorado.mail.onmicrosoft.com')), result)
         with self.assertRaises(ScheduleError):
             parse_message(email(sender='Elisabeth van Reijendam <other@example.com>'))
+
+    def test_mail_validation_command(self):
+        cases = [
+            (email(sender='Elisabeth van Reijendam <ELVA7682@laspcolorado.mail.onmicrosoft.com>'), True),
+            (email(sender='other@example.com'), False),
+            (email().replace(b'Subject: SMOPS', b'Subject: Unrelated'), False),
+            (email(HEADER+'\n'+ROW), False),
+            (b'', False),
+        ]
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory)/'message.tmp'
+            for raw, valid in cases:
+                with self.subTest(valid=valid, size=len(raw)):
+                    path.write_bytes(raw)
+                    result = subprocess.run([sys.executable, '-m', 'smops', 'validate', str(path)],
+                                            capture_output=True, text=True)
+                    self.assertEqual(result.returncode, 0 if valid else 2)
+                    self.assertEqual(result.stdout, '')
+                    self.assertNotIn('Private', result.stderr)
+                    self.assertEqual(path.read_bytes(), raw)
 
     def test_bad_sender_rejected(self):
         with self.assertRaises(ScheduleError):
