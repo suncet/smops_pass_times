@@ -9,7 +9,7 @@
     const future = passes.filter(pass => Date.parse(pass.aos_utc) > now);
     active.sort((a, b) => Date.parse(a.los_utc) - Date.parse(b.los_utc));
     future.sort((a, b) => Date.parse(a.aos_utc) - Date.parse(b.aos_utc));
-    return {active, next: future[0] || null, expired: passes.every(pass => Date.parse(pass.los_utc) <= now)};
+    return {active, next: future[0] || null, expired: passes.length > 0 && passes.every(pass => Date.parse(pass.los_utc) <= now)};
   }
   function countdownUntil(timestamp, now) {
     const seconds = Math.max(0, Math.ceil((Date.parse(timestamp) - now) / 1000));

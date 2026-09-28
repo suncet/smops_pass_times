@@ -72,10 +72,11 @@ function update() {
   }
   $('rows').replaceChildren(fragment);
   $('empty').hidden = visible.length > 0;
+  $('empty').textContent = passes.length ? 'No passes match these filters.' : 'The latest SMOPS email reports no scheduled passes.';
   $('shown').textContent = `${visible.length} of ${passes.length} passes`;
   $('zone-label').textContent = bothZones ? 'UTC + Mountain time (MST/MDT)' : 'Times in '+zone.replace('_',' ');
   $('updated').textContent = 'Last updated: '+new Date(schedule.message_at).toISOString().slice(0,19).replace('T',' ')+' UTC';
-  $('range').textContent = `${formatTime(passes[0].aos_utc).split(',')[0]} – ${formatTime(passes[passes.length-1].los_utc).split(',')[0]} (${zone})`;
+  $('range').textContent = passes.length ? `${formatTime(passes[0].aos_utc).split(',')[0]} – ${formatTime(passes[passes.length-1].los_utc).split(',')[0]} (${zone})` : 'No passes in the latest schedule';
   updateSummary(now, passState(passes, now));
 }
 function renderActiveBanner(active) {
@@ -105,7 +106,7 @@ function renderActiveBanner(active) {
 }
 function updateSummary(now, state) {
   const next = state.next;
-  $('next').textContent = next ? next.mission+' · '+formatTime(next.aos_utc) : state.active.length ? 'No later passes' : 'No remaining passes';
+  $('next').textContent = next ? next.mission+' · '+formatTime(next.aos_utc) : state.active.length ? 'No later passes' : passes.length ? 'No remaining passes' : 'No scheduled passes';
   $('countdown').textContent = next ? countdownUntil(next.aos_utc, now)+' until AOS · '+zoneAbbreviation(next.aos_utc, zone) : state.active.length ? 'Current pass windows shown above' : 'Waiting for the next schedule update';
   const old = now-Date.parse(schedule.message_at) > 36*3600*1000;
   $('stale').hidden = !(state.expired || old);
