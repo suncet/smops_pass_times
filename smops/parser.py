@@ -88,15 +88,20 @@ def parse_table(text):
                if [cell.strip() for cell in line.split('|')] == HEADER]
     if len(headers) != 1:
         raise ScheduleError('Expected exactly one SMOPS table header.')
-    rows, ended = [], False
+    rows, ended, explicitly_empty = [], False, False
     for line in lines[headers[0] + 1:]:
         if not line:
             continue
         if re.fullmatch(r'-{8,}', line):
             ended = True
             break
+        if line == 'No Passes found!' and not rows and not explicitly_empty:
+            explicitly_empty = True
+            continue
+        if explicitly_empty:
+            raise ScheduleError('Unexpected content after the empty-schedule marker.')
         rows.append(parse_row([cell.strip() for cell in line.split('|')]))
-    if not ended or not rows:
+    if not ended or (not rows and not explicitly_empty):
         raise ScheduleError('Schedule is empty or missing its closing separator.')
     keys = {(row['mission'], row['aos_utc']) for row in rows}
     if len(keys) != len(rows):

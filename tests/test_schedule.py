@@ -70,6 +70,21 @@ class ParseTests(unittest.TestCase):
                     self.assertNotIn('Private', result.stderr)
                     self.assertEqual(path.read_bytes(), raw)
 
+    def test_explicit_empty_schedule_and_render(self):
+        body = HEADER+'\nNo Passes found!\n----------------\n'
+        result = parse_message(email(body))
+        self.assertEqual(result['passes'], [])
+        with tempfile.TemporaryDirectory() as directory:
+            render(result, directory)
+            self.assertEqual(json.loads((Path(directory)/'schedule.json').read_text())['passes'], [])
+            self.assertEqual((Path(directory)/'passes.csv').read_text().splitlines(),
+                             ['mission,aos_utc,los_utc,elevation_deg,s_band_candidate,uhf,s_band'])
+        for invalid in [HEADER+'\nNo Passes found!',
+                        body.replace('No Passes found!', 'No Passes found!\n'+ROW),
+                        body.replace('No Passes found!', ROW+'\nNo Passes found!')]:
+            with self.subTest(invalid=invalid), self.assertRaises(ScheduleError):
+                parse_message(email(invalid))
+
     def test_bad_sender_rejected(self):
         with self.assertRaises(ScheduleError):
             parse_message(email(sender='other@example.com'))

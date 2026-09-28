@@ -25,6 +25,6 @@ def render(schedule, output):
         shutil.copyfile(ROOT / 'web' / filename, output / filename)
     (output / '.nojekyll').touch()
     with (output / 'passes.csv').open('w', newline='', encoding='utf-8') as stream:
-        writer = csv.DictWriter(stream, fieldnames=list(data['passes'][0]))
+        writer = csv.DictWriter(stream, fieldnames=['mission', 'aos_utc', 'los_utc', 'elevation_deg', 's_band_candidate', 'uhf', 's_band'])
         writer.writeheader()
         writer.writerows(data['passes'])

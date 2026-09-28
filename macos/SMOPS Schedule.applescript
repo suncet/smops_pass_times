@@ -71,10 +71,16 @@ on queueMessage(rawSource)
  -- The publisher repeats validation; this check also prevents archiving invalid mail.
  set publisherPath to (POSIX path of (path to home folder)) & "Library/Application Support/SMOPS Pass Times/publisher/"
  try
-  do shell script "cd " & quoted form of publisherPath & " && /usr/bin/python3 -m smops validate " & quoted form of temporaryPath
+  try
+   do shell script "cd " & quoted form of publisherPath & " && /usr/bin/python3 -m smops validate " & quoted form of temporaryPath
+  on error validationError number validationNumber
+   my logEvent("validation failed: " & validationError)
+   error validationError number validationNumber
+  end try
   do shell script "/bin/chmod 600 " & quoted form of temporaryPath & " && /bin/mv " & quoted form of temporaryPath & " " & quoted form of (queuePath & messageName & ".eml")
  on error errorText number errorNumber
-  do shell script "/bin/rm -f " & quoted form of temporaryPath
+  set rejectedPath to publisherPath & "../rejected/"
+  do shell script "/bin/mkdir -p " & quoted form of rejectedPath & " && /bin/chmod 600 " & quoted form of temporaryPath & " && /bin/mv " & quoted form of temporaryPath & " " & quoted form of (rejectedPath & messageName & ".eml")
   error errorText number errorNumber
  end try
 end queueMessage

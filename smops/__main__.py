@@ -24,8 +24,10 @@ def main():
     if args.command == 'validate':
         try:
             parse_message(args.email.read_bytes())
-        except (ScheduleError, UnicodeError, ValueError):
-            parser.exit(2, 'Email is not a complete, authorized SMOPS schedule.\n')
+        except ScheduleError as error:
+            parser.exit(2, str(error) + '\n')
+        except (UnicodeError, ValueError):
+            parser.exit(2, 'Email could not be decoded.\n')
     elif args.command == 'build':
         schedule = parse_message(args.email.read_bytes(), args.allow_sender)
         render(schedule, args.output)

@@ -51,3 +51,7 @@ test('after a suspended tab resumes, status uses wall-clock time', () => {
 test('pass identity distinguishes overlapping passes of the same mission', () => {
   assert.notEqual(passKey(pass), passKey({...pass, aos_utc:'2026-09-17T20:01:00Z'}));
 });
+
+test('an explicit empty schedule is not an expired schedule', () => {
+  assert.deepEqual(passState([], Date.now()), {active: [], next: null, expired: false});
+});
